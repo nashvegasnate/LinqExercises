@@ -111,12 +111,40 @@ namespace LinqExercises
             Console.WriteLine($"uniqueNumbers: {String.Join(',', uniqueNumbers)}");
 
             //take the first 3 numbers from the list, skip the first 5 numbers on the list, then append the next 2 numbers after that
+
             var firstThreeNumbersAndTheSixth = numbers.Take(3).Concat(numbers.Skip(5).Take(2));
             Console.WriteLine($"firstThreeNumbersAndTheSixth: {String.Join(',', firstThreeNumbersAndTheSixth)}");
 
+            var animals = new List<Animal> {
+            new Animal { Type = "Pikachu", HeightIninches = 24, WeightInPounds = 10 },
+            new Animal { Type = "Charzard", HeightIninches = 72, WeightInPounds = 250},
+            new Animal { Type = "Bulbasaur", HeightIninches = 12, WeightInPounds = 450},
+            new Animal { Type = "JigglyPuff", HeightIninches = 9, WeightInPounds = 5},
+            new Animal {Type = "Cthulhu", HeightIninches = 96, WeightInPounds = 375},
+            };
 
+            var animalsThatStartWithC = animals.Where(animal => animal.Type.ToLower().StartsWith('c'));
+           
+            foreach (var animal in animalsThatStartWithC)
+            {
+                Console.WriteLine(animal.Type);
+            }
 
+            //Group a collection by a given key (based on a function)
 
+            //this one groups the animals by the first character in the Type, then loops them and prints out each animal
+            var groupAnimals = animals.GroupBy(animal => animal.Type.First());
+
+            foreach (var animalGroup in groupAnimals)
+            {
+                //GroupBy() above creates the Key below to keep track of items in the group
+                Console.WriteLine($"Animals that start with {animalGroup.Key}");
+
+                foreach (var animal in animalGroup)
+                {
+                    Console.WriteLine(animal.Type);
+                }
+            }
         }
     }
 }
